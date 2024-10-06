@@ -4,6 +4,26 @@ SELECT * FROM ingredient;
 
 SELECT * FROM ingredientinrecipe;
 
+CREATE TABLE recipe (
+    id SERIAL PRIMARY KEY,
+    recipeName VARCHAR(55) 
+);
+
+CREATE TABLE ingredient (
+    id SERIAL PRIMARY KEY,
+    ingredientName VARCHAR(55) 
+);
+
+CREATE TABLE IngredientInRecipe (
+    id SERIAL PRIMARY KEY,
+    recipeId INTEGER,
+    ingredientId INTEGER,
+    FOREIGN KEY (recipeId) REFERENCES recipe(id),
+    FOREIGN KEY (ingredientId) REFERENCES ingredient(id)
+);
+
+ALTER TABLE recipe ADD COLUMN instructions text;
+
 INSERT INTO ingredient (ingredientName) 
 VALUES 
 ('heavy cream'),
@@ -125,3 +145,11 @@ ALTER TABLE recipe ADD COLUMN instructions text;
 SELECT a.recipeName, a.instructions, b.ingredientName FROM recipe a INNER JOIN IngredientInRecipe c ON a.id = c.recipeId INNER JOIN ingredient b ON b.id = c.ingredientId WHERE a.recipeName = 'Pumpkin Tartlets';
 
 localhost:3000/fullRecipes/search?recipeName=Pumpkin%20Tartlets
+
+SELECT id, recipeName, instructions FROM recipe ORDER BY RANDOM() LIMIT 1;
+
+SELECT b.ingredientName FROM ingredient b INNER JOIN IngredientInRecipe c ON b.id = c.ingredientId WHERE c.recipeId = $1;
+
+SELECT a.recipeName, b.ingredientName FROM recipe a INNER JOIN IngredientInRecipe c ON a.id = c.recipeId INNER JOIN ingredient b ON b.id = c.ingredientId;
+
+PGPASSWORD=8sksNBdYdlKSODhgKgsiDjszEYeUbIx5 psql -h dpg-cs11rli3esus7399nil0-a.oregon-postgres.render.com -U myrecipes_7jlr_user myrecipes_7jlr
