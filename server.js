@@ -2,13 +2,14 @@ const express = require('express');
 const recipeRouter = require('./routes/recipes.routes');
 const ingredientRouter = require('./routes/ingredients.routes');
 const fullRecipesRouter = require('./routes/fullRecipes.routes');
-const randomRouter = require('./routes/randomRecipe.routes')
+const randomRouter = require('./routes/randomRecipe.routes');
 const app = express();
 
+app.use(express.json());
 app.use('/ingredients', ingredientRouter);
 app.use('/recipes', recipeRouter);
 app.use('/fullrecipes', fullRecipesRouter);
-app.use('/random', randomRouter)
+app.use('/random', randomRouter);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server is running on port 3000');

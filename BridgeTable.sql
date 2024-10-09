@@ -152,4 +152,56 @@ SELECT b.ingredientName FROM ingredient b INNER JOIN IngredientInRecipe c ON b.i
 
 SELECT a.recipeName, b.ingredientName FROM recipe a INNER JOIN IngredientInRecipe c ON a.id = c.recipeId INNER JOIN ingredient b ON b.id = c.ingredientId;
 
+//12. lesson, rke143
+SELECT * FROM recipe WHERE recipename = 'Pumpkin Pancakes';
+
+    const data = await db.query('SELECT * FROM recipe WHERE recipename = $1', [
+        recipename,
+    ]);
+
+{
+    "recipename": "Pumpkin Pancakes"
+}
+
+{
+    "recipename": "Pumpkin Juice"
+}
+
+UPDATE recipe SET instructions = 'some instructions'  WHERE recipename='Pumpkin Pancakes';
+DELETE FROM recipe WHERE recipename = 'Pumpkin Juice';
+SELECT * FROM ingredient WHERE ingredientname = 'all-purpose flour';
+
+lesson 12:
+"{
+  ""recipe"": ""Pumpkin Pancakes"",
+  ""ingredients"": [
+    ""all-purpose flour"",
+    ""brown sugar"",
+    ""baking powder"",
+    ""baking soda"",
+    ""salt"",
+    ""cinnamon"",
+    ""nutmeg"",
+    ""ginger"",
+    ""milk"",
+    ""pumpkin puree"",
+    ""large egg"",
+    ""melted butter"",
+    ""vanilla extract"",
+    ""Cooking spray or butter for greasing""
+  ],
+  ""instructions"": ""Whisk dry ingredients in a bowl. \n <br>In a separate bowl, whisk milk, pumpkin, egg, melted butter, and vanilla.<br>Combine wet and dry ingredients; don't overmix. \n <br>Preheat griddle, grease with cooking spray or butter.\n <br>Pour 1/4 cup batter per pancake onto the griddle.\n <br>Cook until bubbles form; flip and cook until golden brown.\n <br>Repeat for remaining batter.\n <br>Serve warm with desired toppings.""
+} "
+
+"SELECT * FROM recipe WHERE recipename = $1;"
+"INSERT INTO recipe (recipename) VALUES ($1);"
+"UPDATE recipe SET instructions = $1 WHERE recipename = $2;"
+"DELETE FROM recipe WHERE recipename = $1;"
+"SELECT * FROM ingredient WHERE ingredientname = $1;"
+"INSERT INTO ingredient (ingredientname) VALUES ($1);"
+"DELETE FROM ingredient WHERE ingredientname = $1;"
+
+const data = await db.query('SELECT a.recipeName, b.ingredientName FROM recipe a INNER JOIN IngredientInRecipe c ON a.id = c.recipeId INNER JOIN ingredient b ON b.id = c.ingredientId WHERE a.recipeName = $1 AND b.ingredientName = $2;', [recipename, ingredientname]);
+"INSERT INTO ingredientinrecipe (recipeid, ingredientid) SELECT a.id, b.id FROM recipe a JOIN ingredient b ON a.recipeName = $1 AND b.ingredientname = $2;", [recipename, ingredientname]
+
 PGPASSWORD=8sksNBdYdlKSODhgKgsiDjszEYeUbIx5 psql -h dpg-cs11rli3esus7399nil0-a.oregon-postgres.render.com -U myrecipes_7jlr_user myrecipes_7jlr

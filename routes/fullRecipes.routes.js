@@ -52,7 +52,7 @@ router.get('/search', async (req, res) => {
     console.log(searchString);
 
     const recipe = await db.query(
-        'SELECT a.recipeName, a.instructions, b.ingredientName FROM recipe a INNER JOIN IngredientInRecipe c ON a.id = c.recipeId INNER JOIN ingredient b ON b.id = c.ingredientId WHERE a.recipeName = $1', [searchString]);
+        'SELECT a.recipeName, a.instructions, b.ingredientName FROM recipe a INNER JOIN IngredientInRecipe c ON a.id = c.recipeId INNER JOIN ingredient b ON b.id = c.ingredientId WHERE a.recipeName = $1;', [searchString]);
 
         const recipeMap = {};
 
