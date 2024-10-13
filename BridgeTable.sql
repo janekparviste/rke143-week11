@@ -204,4 +204,11 @@ lesson 12:
 const data = await db.query('SELECT a.recipeName, b.ingredientName FROM recipe a INNER JOIN IngredientInRecipe c ON a.id = c.recipeId INNER JOIN ingredient b ON b.id = c.ingredientId WHERE a.recipeName = $1 AND b.ingredientName = $2;', [recipename, ingredientname]);
 "INSERT INTO ingredientinrecipe (recipeid, ingredientid) SELECT a.id, b.id FROM recipe a JOIN ingredient b ON a.recipeName = $1 AND b.ingredientname = $2;", [recipename, ingredientname]
 
+ALTER TABLE recipe ADD COLUMN imageURL TEXT;
+SELECT recipename, imageURL FROM recipe;
+UPDATE recipe SET imageURL = 'https://images.pexels.com/photos/18932267/pexels-photo-18932267/free-photo-of-ornamental-pumpkins-and-a-plate-with-baked-pastry.jpeg' WHERE id=1;
+UPDATE recipe SET imageURL = 'https://images.pexels.com/photos/4917092/pexels-photo-4917092.jpeg' WHERE id=2;
+UPDATE recipe SET imageURL = 'https://images.pexels.com/photos/5605535/pexels-photo-5605535.jpeg' WHERE id=3;
+UPDATE recipe SET imageURL = 'https://images.pexels.com/photos/5377574/pexels-photo-5377574.jpeg' WHERE id=4;
+
 PGPASSWORD=8sksNBdYdlKSODhgKgsiDjszEYeUbIx5 psql -h dpg-cs11rli3esus7399nil0-a.oregon-postgres.render.com -U myrecipes_7jlr_user myrecipes_7jlr
