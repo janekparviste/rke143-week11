@@ -1,11 +1,8 @@
 const express = require('express');
-const db = require('../db');
 const router = express.Router();
+const allRecipesController = require('../controllers/allRecipesController')
 
-router.get('/', async (req, res) => {
-    const recipes = await db.query('SELECT * FROM recipe;');
-    res.json(recipes.rows);
-});
+router.get('/', allRecipesController.getAllRecipes);
 
 router.post('/', async (req, res) => {
     const { recipename } = req.body;
